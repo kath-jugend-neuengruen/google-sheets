@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anmeldung</title>
+</head>
+<body>
+    <h1>Anmeldeformular</h1>
+    <form id="signup-form">
+        <label for="username">Benutzername:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">Passwort:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <label for="email">E-Mail:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <button type="submit">Anmelden</button>
+    </form>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Formulardaten sammeln
+            const formData = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value,
+                email: document.getElementById('email').value
+            };
+
+            // Sende Daten an das Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycbxWD7Wt1Dr9AGvaWfOzi0UupvtSwM3uJMJo6K_6FdUBUeNcmTIBvC7GTWFNjknXpgvo/exec', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => alert('Anmeldung erfolgreich!'))
+            .catch(error => alert('Fehler beim Anmelden!'));
+        });
+    </script>
+</body>
+</html>
